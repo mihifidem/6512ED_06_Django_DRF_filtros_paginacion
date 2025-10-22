@@ -2,10 +2,13 @@ from rest_framework import generics, filters
 from django_filters.rest_framework import DjangoFilterBackend
 from .models import Book
 from .serializers import BookSerializer
+from .pagination import SmallResultsSetPagination
 
 class BookListView(generics.ListAPIView):
     queryset = Book.objects.all().order_by("id")
     serializer_class = BookSerializer
+    pagination_class = SmallResultsSetPagination  # sobrescribe la global
+
 
     # Habilitamos backends ya definidos por defecto en settings,
     # pero también podemos declararlos aquí explícitamente:
